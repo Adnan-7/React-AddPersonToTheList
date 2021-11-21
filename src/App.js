@@ -9,12 +9,19 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newPerson = { name, age, email };
-    setPeople([...people, newPerson]);
-    console.log(newPerson);
-    setName('');
-    setAge('');
-    setEmail('');
+    if (name && age && email) {
+      const newPerson = {
+        id: new Date().getTime().toString(),
+        name,
+        age,
+        email,
+      };
+      setPeople([...people, newPerson]);
+      // console.log(newPerson);
+      setName('');
+      setAge('');
+      setEmail('');
+    }
   };
   return (
     <>
@@ -58,6 +65,16 @@ function App() {
             Add Person
           </button>
         </form>
+        {people.map((person) => {
+          const { id, name, age, email } = person;
+          return (
+            <div className='item' key={id}>
+              <h4>{name}</h4>
+              <p>{age}</p>
+              <p>{email}</p>
+            </div>
+          );
+        })}
       </section>
     </>
   );
